@@ -100,3 +100,56 @@ end
 ```
 
 This is less robust than Sidekiq Pro batches (no retry tracking, no nested batches) but handles simple coordination.
+
+## Anti-pattern: Doing work in batch callbacks
+
+```ruby
+# BAD — callback does heavy work that should be a job
+class ImportCallbacks
+  def on_complete(status, options)
+    import = Import.find(options["import_id"])
+    import.rows.each do |row|
+      row.validate_and_finalize!  # Slow, blocks the callback thread
+    end
+    ImportMailer.success(import).deliver_now  # Blocking email send
+  end
+end
+```
+
+Batch callbacks run in a Sidekiq worker thread. Heavy work blocks the thread and can cause timeouts. Callbacks should only update status and enqueue follow-up jobs.
+
+```ruby
+# GOOD — callback enqueues the next step
+class ImportCallbacks
+  def on_complete(status, options)
+    import = Import.find(options["import_id"])
+    import.update!(status: "processing_complete", failures: status.failures)
+    FinalizeImportJob.perform_async(import.id)
+  end
+end
+```
+
+## Anti-pattern: Adding jobs to a batch outside the block
+
+```ruby
+# BAD — job added after the block has closed
+batch = Sidekiq::Batch.new
+batch.on(:complete, MyCallback)
+
+batch.jobs do
+  FirstJob.perform_async
+end
+
+# This job is NOT part of the batch — it runs independently
+SecondJob.perform_async  # callback won't wait for this
+```
+
+All jobs must be enqueued inside the `batch.jobs` block. Jobs enqueued outside the block are standalone — the batch doesn't track them and callbacks won't wait for them.
+
+```ruby
+# GOOD — all jobs inside the block
+batch.jobs do
+  FirstJob.perform_async
+  SecondJob.perform_async
+end
+```

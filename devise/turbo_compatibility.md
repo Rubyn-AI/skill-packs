@@ -22,7 +22,7 @@ Devise was built before Turbo existed. Several default behaviors break with Turb
 
 Turbo expects `422` for validation failures. Devise's default `SessionsController` renders with `200`, which Turbo treats as a success — the user sees a blank page or unexpected navigation.
 
-## Fix: Override Devise controllers to return correct status codes
+## Pattern: Override Devise controllers to return correct status codes
 
 ```ruby
 # app/controllers/users/sessions_controller.rb
