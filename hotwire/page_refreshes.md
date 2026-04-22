@@ -64,3 +64,51 @@ end
 ```
 
 Both meta tags are required for smooth refresh behavior. Without `morph`, refreshes do a full body replacement (losing state). Without `preserve`, scroll jumps to the top.
+
+## Anti-pattern: Using page refreshes for high-frequency updates
+
+```ruby
+# BAD — chat messages fire a full page refresh on every message
+class Message < ApplicationRecord
+  after_create_commit -> { broadcast_refresh_to conversation }
+end
+```
+
+In a chat, messages arrive rapidly. Each refresh re-renders the entire page and morphs the DOM. For 10 messages/second, that's 10 full renders — sluggish and wasteful.
+
+```ruby
+# GOOD — append just the new message
+class Message < ApplicationRecord
+  after_create_commit -> {
+    broadcast_append_to conversation,
+      target: "messages",
+      partial: "messages/message"
+  }
+end
+```
+
+Use targeted streams (`append`, `prepend`, `replace`) for individual item updates. Reserve page refreshes for complex multi-section pages where targeting every element is impractical.
+
+## Anti-pattern: Forgetting morph-stable IDs
+
+```erb
+<%# BAD — no stable IDs, morphing can't match elements %>
+<% @tasks.each do |task| %>
+  <div class="task">
+    <span><%= task.name %></span>
+  </div>
+<% end %>
+```
+
+Without `id` attributes, morphing treats every element as new. It replaces the entire list on every refresh, losing focus state, CSS transitions, and Stimulus controller state.
+
+```erb
+<%# GOOD — dom_id gives each element a stable identity %>
+<% @tasks.each do |task| %>
+  <div id="<%= dom_id(task) %>" class="task">
+    <span><%= task.name %></span>
+  </div>
+<% end %>
+```
+
+Every element that morphing should track needs a unique, stable `id`. Use `dom_id(record)` for ActiveRecord objects.
