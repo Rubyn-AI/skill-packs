@@ -69,7 +69,7 @@ your-pack/
 
 - Pack names match gem names where possible: `stripe` not `stripe-payments`, `sidekiq` not `background-jobs-sidekiq`.
 - Exception: multi-gem packs like `hotwire` (covers `turbo-rails` + `stimulus-rails`).
-- Once published, pack names cannot be renamed or reused. Version bumps are fine.
+- **The registry is append-only.** Once a pack name is published, it cannot be renamed, reassigned, or reused. Version bumps are fine; name changes are not. Choose your pack name carefully.
 
 ### Categories
 
@@ -202,6 +202,88 @@ The PR CI runs this automatically on changed packs.
 5. Open a PR against `main`
 
 The CI will validate your pack automatically. A maintainer will review the content quality before merging.
+
+## Content Review Checklist
+
+Before opening your PR, verify each skill file against this checklist:
+
+- [ ] Frontmatter has `name` and `triggers` fields
+- [ ] Triggers are specific enough (3-8 per skill, no overly broad terms)
+- [ ] At least one `## Pattern:` section with a working, copy-pasteable code example
+- [ ] At least one `## Anti-pattern:` section explaining what NOT to do and why
+- [ ] Code examples use Rails 7+ conventions (or 8+ where specified in frontmatter)
+- [ ] No placeholder or stub content — every section has real, useful guidance
+- [ ] Skill doesn't duplicate built-in skills (core Ruby, Rails, RSpec, design patterns)
+- [ ] Skill file is listed in `manifest.json` under `skills`
+- [ ] `ruby scripts/validate-pack.rb your-pack` passes with 0 errors
+
+## Example: Anatomy of a Real Pack
+
+Here's what the `pundit` pack looks like as a reference:
+
+```
+pundit/
+  manifest.json
+  policy_basics.md
+  scopes.md
+  testing_policies.md
+  headless_policies.md
+  namespaced_policies.md
+  integration_patterns.md
+```
+
+**manifest.json:**
+```json
+{
+  "name": "pundit",
+  "displayName": "Pundit",
+  "description": "Policy classes, scopes, testing, namespacing, and controller integration patterns",
+  "version": "1.0.0",
+  "author": "rubyn",
+  "category": "authorization",
+  "tags": ["pundit", "authorization", "policies", "scopes", "permissions"],
+  "compatibility": {
+    "rubynCode": ">=0.5.0",
+    "rails": ">=7.0"
+  },
+  "gemDependencies": ["pundit"],
+  "skills": [
+    "policy_basics.md",
+    "scopes.md",
+    "testing_policies.md",
+    "headless_policies.md",
+    "namespaced_policies.md",
+    "integration_patterns.md"
+  ]
+}
+```
+
+**A skill file (policy_basics.md) starts like:**
+```markdown
+---
+name: pundit-policy-basics
+triggers:
+  - pundit policy
+  - authorize
+  - policy class
+  - pundit setup
+  - authorization
+gems:
+  - pundit
+---
+
+# Pundit Policy Basics
+
+Pundit policies are plain Ruby classes that encapsulate authorization logic...
+
+## Pattern: One policy per model
+...
+
+## Anti-pattern: Fat controller authorization
+...
+```
+
+Study the existing packs in this repo for more examples of well-written skills.
 
 ## What Happens After Merge
 
