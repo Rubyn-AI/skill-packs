@@ -224,7 +224,6 @@ Here's what the `pundit` pack looks like as a reference:
 ```
 pundit/
   manifest.json
-  README.md
   policy_basics.md
   scopes.md
   testing_policies.md
@@ -238,11 +237,11 @@ pundit/
 {
   "name": "pundit",
   "displayName": "Pundit",
-  "description": "Authorization policies, scopes, and testing patterns for Pundit",
+  "description": "Policy classes, scopes, testing, namespacing, and controller integration patterns",
   "version": "1.0.0",
   "author": "rubyn",
   "category": "authorization",
-  "tags": ["pundit", "authorization", "policies", "scopes"],
+  "tags": ["pundit", "authorization", "policies", "scopes", "permissions"],
   "compatibility": {
     "rubynCode": ">=0.5.0",
     "rails": ">=7.0"
@@ -266,8 +265,9 @@ name: pundit-policy-basics
 triggers:
   - pundit policy
   - authorize
-  - ApplicationPolicy
   - policy class
+  - pundit setup
+  - authorization
 gems:
   - pundit
 ---
