@@ -1,0 +1,44 @@
+name: Validate Packs
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "*/manifest.json"
+      - "*/*.md"
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Detect changed packs
+        id: changed
+        run: |
+          PACKS=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..HEAD \
+            | grep -oP '^[^/]+(?=/)' \
+            | grep -v -E '^\.(git|github)$|^scripts$|^template$' \
+            | sort -u \
+            | tr '\n' ' ')
+          echo "packs=$PACKS" >> "$GITHUB_OUTPUT"
+          if [ -z "$PACKS" ]; then
+            echo "No pack directories changed."
+          else
+            echo "Changed packs: $PACKS"
+          fi
+
+      - name: Validate changed packs
+        if: steps.changed.outputs.packs != ''
+        run: ruby scripts/validate-pack.rb ${{ steps.changed.outputs.packs }}
+
+      - name: Verify registry generation
+        run: |
+          ruby scripts/generate-registry.rb --pretty
+          echo "Registry generated successfully."

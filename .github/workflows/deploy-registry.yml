@@ -1,0 +1,49 @@
+name: Deploy Registry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*/manifest.json"
+      - "*/*.md"
+      - "scripts/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Validate all packs
+        run: ruby scripts/validate-pack.rb --all
+
+      - name: Generate registry.json
+        run: ruby scripts/generate-registry.rb --pretty
+
+      - name: Commit registry.json if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet registry.json 2>/dev/null; then
+            echo "registry.json unchanged, skipping commit."
+          else
+            git add registry.json
+            git commit -m "chore: regenerate registry.json"
+            git push
+          fi
+
+      - name: Trigger rubyn.ai sync
+        if: success()
+        run: |
+          echo "Registry deployed. rubyn.ai sync would be triggered here."
+          # Future: webhook or repository_dispatch to rubyn.ai deployment
+          # curl -X POST "https://rubyn.ai/api/webhooks/registry-sync" \
+          #   -H "Authorization: Bearer ${{ secrets.SYNC_TOKEN }}"

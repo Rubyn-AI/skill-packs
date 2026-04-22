@@ -1,0 +1,255 @@
+{
+  "packs": [
+    {
+      "name": "devise",
+      "displayName": "Devise",
+      "description": "Authentication setup, OmniAuth, JWT APIs, Turbo compatibility, and security hardening",
+      "category": "auth",
+      "skillCount": 8,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "authentication",
+        "devise",
+        "login",
+        "oauth",
+        "jwt"
+      ],
+      "gemDependencies": [
+        "devise"
+      ],
+      "installCommand": "/install-skills devise",
+      "url": "https://rubyn.ai/skills/devise"
+    },
+    {
+      "name": "graphql-ruby",
+      "displayName": "GraphQL-Ruby",
+      "description": "Schema design, resolvers, mutations, subscriptions, DataLoader, and authorization",
+      "category": "api",
+      "skillCount": 9,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "graphql",
+        "api",
+        "schema",
+        "resolvers",
+        "mutations"
+      ],
+      "gemDependencies": [
+        "graphql"
+      ],
+      "installCommand": "/install-skills graphql-ruby",
+      "url": "https://rubyn.ai/skills/graphql-ruby"
+    },
+    {
+      "name": "hotwire",
+      "displayName": "Hotwire",
+      "description": "Turbo Drive, Frames, Streams, Stimulus, and Strada patterns for Rails",
+      "category": "frontend",
+      "skillCount": 14,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "turbo",
+        "stimulus",
+        "hotwire",
+        "frontend",
+        "spa",
+        "turbo-streams",
+        "turbo-frames"
+      ],
+      "gemDependencies": [
+        "turbo-rails",
+        "stimulus-rails"
+      ],
+      "installCommand": "/install-skills hotwire",
+      "url": "https://rubyn.ai/skills/hotwire"
+    },
+    {
+      "name": "kamal",
+      "displayName": "Kamal",
+      "description": "Container deployment, accessories, SSL, secrets, multi-server, and monitoring",
+      "category": "infra",
+      "skillCount": 7,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "kamal",
+        "deployment",
+        "docker",
+        "containers",
+        "devops"
+      ],
+      "gemDependencies": [
+        "kamal"
+      ],
+      "installCommand": "/install-skills kamal",
+      "url": "https://rubyn.ai/skills/kamal"
+    },
+    {
+      "name": "pundit",
+      "displayName": "Pundit",
+      "description": "Policy classes, scopes, testing, namespacing, and controller integration patterns",
+      "category": "authorization",
+      "skillCount": 6,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "pundit",
+        "authorization",
+        "policies",
+        "scopes",
+        "permissions"
+      ],
+      "gemDependencies": [
+        "pundit"
+      ],
+      "installCommand": "/install-skills pundit",
+      "url": "https://rubyn.ai/skills/pundit"
+    },
+    {
+      "name": "sidekiq",
+      "displayName": "Sidekiq",
+      "description": "Job patterns, queues, retries, batches, scheduling, testing, and performance tuning",
+      "category": "background",
+      "skillCount": 8,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "sidekiq",
+        "background-jobs",
+        "queues",
+        "redis",
+        "async"
+      ],
+      "gemDependencies": [
+        "sidekiq"
+      ],
+      "installCommand": "/install-skills sidekiq",
+      "url": "https://rubyn.ai/skills/sidekiq"
+    },
+    {
+      "name": "stripe",
+      "displayName": "Stripe",
+      "description": "Payment processing, subscriptions, webhooks, Stripe Connect, and Pay gem integration",
+      "category": "payments",
+      "skillCount": 11,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "stripe",
+        "payments",
+        "subscriptions",
+        "webhooks",
+        "billing"
+      ],
+      "gemDependencies": [
+        "stripe"
+      ],
+      "installCommand": "/install-skills stripe",
+      "url": "https://rubyn.ai/skills/stripe"
+    },
+    {
+      "name": "view-component",
+      "displayName": "ViewComponent",
+      "description": "Component structure, slots, previews, Lookbook, testing, and Stimulus integration",
+      "category": "frontend",
+      "skillCount": 7,
+      "author": "rubyn",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-22T02:39:24Z",
+      "compatibility": {
+        "rubynCode": ">=0.5.0",
+        "rails": ">=7.0"
+      },
+      "tags": [
+        "view-component",
+        "components",
+        "ui",
+        "lookbook",
+        "slots"
+      ],
+      "gemDependencies": [
+        "view_component"
+      ],
+      "installCommand": "/install-skills view-component",
+      "url": "https://rubyn.ai/skills/view-component"
+    }
+  ],
+  "categories": [
+    {
+      "id": "api",
+      "name": "API & Serialization",
+      "count": 1
+    },
+    {
+      "id": "auth",
+      "name": "Authentication",
+      "count": 1
+    },
+    {
+      "id": "authorization",
+      "name": "Authorization",
+      "count": 1
+    },
+    {
+      "id": "background",
+      "name": "Background Jobs",
+      "count": 1
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "count": 2
+    },
+    {
+      "id": "infra",
+      "name": "Infrastructure",
+      "count": 1
+    },
+    {
+      "id": "payments",
+      "name": "Payments & Commerce",
+      "count": 1
+    }
+  ],
+  "totalPacks": 8,
+  "totalSkills": 70,
+  "generatedAt": "2026-04-22T02:39:24Z"
+}

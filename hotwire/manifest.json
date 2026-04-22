@@ -1,0 +1,30 @@
+{
+  "name": "hotwire",
+  "displayName": "Hotwire",
+  "description": "Turbo Drive, Frames, Streams, Stimulus, and Strada patterns for Rails",
+  "version": "1.0.0",
+  "author": "rubyn",
+  "category": "frontend",
+  "tags": ["turbo", "stimulus", "hotwire", "frontend", "spa", "turbo-streams", "turbo-frames"],
+  "compatibility": {
+    "rubynCode": ">=0.5.0",
+    "rails": ">=7.0"
+  },
+  "gemDependencies": ["turbo-rails", "stimulus-rails"],
+  "skills": [
+    "turbo_drive.md",
+    "turbo_frames.md",
+    "turbo_streams.md",
+    "stimulus_controllers.md",
+    "stimulus_values_targets.md",
+    "morphing.md",
+    "broadcasting.md",
+    "lazy_loading_frames.md",
+    "form_submissions.md",
+    "page_refreshes.md",
+    "custom_actions.md",
+    "testing_turbo.md",
+    "stimulus_outlets.md",
+    "turbo_native_strada.md"
+  ]
+}
